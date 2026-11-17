@@ -178,16 +178,16 @@ export function HeroFloatingObjects() {
         audio.current = context;
         const buffer = context.createBuffer(
           1,
-          context.sampleRate * 0.065,
+          context.sampleRate * 0.08,
           context.sampleRate,
         );
         const samples = buffer.getChannelData(0);
         // Two short, dry impulses mimic a mechanical mouse switch.
         for (let i = 0; i < samples.length; i++) {
           const time = i / context.sampleRate;
-          const press = Math.exp(-time * 420);
+          const press = Math.exp(-time * 220);
           const release =
-            time >= 0.027 ? 0.55 * Math.exp(-(time - 0.027) * 520) : 0;
+            time >= 0.027 ? 0.65 * Math.exp(-(time - 0.027) * 300) : 0;
           samples[i] = (Math.random() * 2 - 1) * (press + release);
         }
         clickBuffer.current = buffer;
@@ -199,10 +199,10 @@ export function HeroFloatingObjects() {
         source.buffer = clickBuffer.current;
         const filter = context.createBiquadFilter();
         filter.type = "bandpass";
-        filter.frequency.value = 2200;
-        filter.Q.value = 0.7;
+        filter.frequency.value = 1800;
+        filter.Q.value = 0.5;
         const volume = context.createGain();
-        volume.gain.value = 0.09;
+        volume.gain.value = 0.55;
         source.connect(filter).connect(volume).connect(context.destination);
         source.onended = () => {
           source.disconnect();
@@ -211,7 +211,7 @@ export function HeroFloatingObjects() {
         };
         source.start();
       };
-      if (context.state === "suspended")
+      if (context.state !== "running")
         void context
           .resume()
           .then(play)
