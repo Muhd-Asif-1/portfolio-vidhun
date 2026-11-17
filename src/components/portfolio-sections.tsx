@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { CopyEmailButton } from "@/components/copy-email-button";
+import { contact } from "@/lib/contact";
 
 const projects = [
   {
@@ -155,22 +157,7 @@ export function PortfolioHero() {
               </span>
             </h1>
             <div className="mt-[18px] flex h-[38px] items-center rounded-full bg-white text-[13px] font-medium shadow-[0_8px_28px_rgba(30,40,60,0.14)]">
-              <button
-                type="button"
-                disabled
-                title="Contact email coming soon"
-                className="flex items-center gap-1.5 rounded-l-full px-3 py-2.5"
-                aria-label="Copy email address (coming soon)"
-              >
-                <Image
-                  src="/images/hero/a8270.svg"
-                  alt=""
-                  width={18}
-                  height={18}
-                  unoptimized
-                />
-                Copy
-              </button>
+              <CopyEmailButton />
               <span aria-hidden="true" className="h-5 w-px bg-black/4" />
               <button
                 type="button"
@@ -202,14 +189,12 @@ export function PortfolioHero() {
             solutions that bring ideas to life.
           </p>
           <div className="mt-8 flex items-center justify-center gap-3 text-[22px] leading-none">
-            <button
-              type="button"
-              disabled
-              title="Email address coming soon"
-              className="hero-action mercury-button h-[50px] rounded-full px-7"
+            <a
+              href={`mailto:${contact.email}`}
+              className="hero-action mercury-button flex h-[50px] items-center rounded-full px-7"
             >
               Get in touch
-            </button>
+            </a>
             <a
               href="#works"
               className="hero-action aqua-button flex h-[50px] items-center rounded-full px-7 text-white"
@@ -313,17 +298,25 @@ export function PortfolioFooter() {
         className="relative mt-[4.4%] flex justify-center gap-5"
       >
         {[
-          { name: "Behance", file: "behance" },
-          { name: "Instagram", file: "instagram" },
-          { name: "LinkedIn", file: "linkedin" },
+          { name: "Behance", file: "behance", href: contact.profiles.behance },
+          {
+            name: "Instagram",
+            file: "instagram",
+            href: contact.profiles.instagram,
+          },
+          {
+            name: "LinkedIn",
+            file: "linkedin",
+            href: contact.profiles.linkedin,
+          },
         ].map((social) => (
-          <button
-            type="button"
+          <a
             key={social.file}
-            disabled
-            aria-label={`${social.name} (profile coming soon)`}
-            title={`${social.name} profile coming soon`}
-            className="relative size-11"
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${social.name} (opens in a new tab)`}
+            className="relative block size-11 rounded-full"
           >
             <Image
               src={`/images/footer/${social.file}.png`}
@@ -333,7 +326,7 @@ export function PortfolioFooter() {
               className="pointer-events-none absolute -left-5 -top-3 max-w-none"
               unoptimized
             />
-          </button>
+          </a>
         ))}
       </nav>
     </footer>

@@ -4,6 +4,7 @@ import {
   PortfolioWorks,
 } from "@/components/portfolio-sections";
 import { Testimonials } from "@/components/testimonials";
+import { contact } from "@/lib/contact";
 
 export default function Home() {
   return (
@@ -31,14 +32,12 @@ export default function Home() {
           <a href="#about" className="rounded-full px-3.5 py-1.5">
             About
           </a>
-          <button
-            type="button"
-            disabled
-            title="Email address coming soon"
+          <a
+            href={`mailto:${contact.email}`}
             className="rounded-full px-3.5 py-1.5"
           >
             Email Me
-          </button>
+          </a>
         </nav>
       </header>
       <main id="main">
