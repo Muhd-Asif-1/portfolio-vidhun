@@ -66,6 +66,10 @@ button:disabled {
   animation-delay: -3s;
 }
 
+.hero-decoration:is(:hover, :focus) {
+  animation-play-state: paused;
+}
+
 .hero-head {
   --float-x: 3px;
   --float-y: -12px;
