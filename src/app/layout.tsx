@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${tiemposText.variable} h-full antialiased`}
     >
+      head
       <body className="min-h-full flex flex-col">
+        <Analytics />
         <SitePreloader>{children}</SitePreloader>
       </body>
     </html>
