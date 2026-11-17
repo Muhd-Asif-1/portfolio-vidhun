@@ -345,14 +345,14 @@ export function PortfolioFooter() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${social.name} (opens in a new tab)`}
-            className="relative block size-11 rounded-full"
+            className="footer-social-link relative block size-11 rounded-full"
           >
             <Image
               src={`/images/footer/${social.file}.png`}
               alt=""
               width={84}
               height={92}
-              className="pointer-events-none absolute -left-5 -top-3 max-w-none"
+              className="footer-social-icon pointer-events-none absolute -left-5 -top-3 max-w-none"
               unoptimized
             />
           </a>

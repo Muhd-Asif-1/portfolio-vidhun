@@ -98,7 +98,7 @@ export function SitePreloader({ children }: { children: ReactNode }) {
               height={283}
               unoptimized
               loading="eager"
-              className="h-auto w-64 sm:w-80"
+              className="h-auto w-[77px] sm:w-24"
             />
           </div>
           <span className="sr-only">Loading portfolio…</span>

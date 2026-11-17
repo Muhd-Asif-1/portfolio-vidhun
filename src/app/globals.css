@@ -92,6 +92,17 @@ button:disabled {
     box-shadow 240ms ease-out;
 }
 
+.footer-social-icon {
+  transition:
+    transform 220ms ease-out,
+    filter 220ms ease-out;
+}
+
+.footer-social-link:focus-visible .footer-social-icon {
+  transform: translateY(-3px) scale(1.06);
+  filter: drop-shadow(0 6px 8px #3056941f);
+}
+
 .mercury-button {
   --button-glow: 0 16px 32px -10px #2a4b84a0;
   background: linear-gradient(180deg, #fffffffa, #f7f8faf7 58%, #dde1e7f2);
@@ -129,6 +140,11 @@ button:disabled {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .footer-social-link:hover .footer-social-icon {
+    transform: translateY(-3px) scale(1.06);
+    filter: drop-shadow(0 6px 8px #3056941f);
+  }
+
   .hero-action:hover {
     transform: translateY(-2px) scale(1.02);
   }
@@ -142,6 +158,10 @@ button:disabled {
   }
 }
 
+.footer-social-link:active .footer-social-icon {
+  transform: translateY(-1px) scale(0.98);
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     scroll-behavior: auto;
@@ -152,12 +172,14 @@ button:disabled {
     animation: none;
   }
 
-  .hero-action {
+  .hero-action,
+  .footer-social-icon {
     transition: none;
   }
 
   .hero-action:hover,
-  .hero-action:focus-visible {
+  .hero-action:focus-visible,
+  .footer-social-link:is(:hover, :focus-visible, :active) .footer-social-icon {
     transform: none;
   }
 }
