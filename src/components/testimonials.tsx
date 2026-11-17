@@ -145,6 +145,7 @@ export function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-title"
+      data-section-reveal="testimonials"
       className="overflow-clip px-5 pb-20 pt-10 sm:pb-[104px] sm:pt-6"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -159,6 +160,7 @@ export function Testimonials() {
       </h2>
       <div
         ref={stage}
+        data-testimonial-stage
         className="relative mx-auto h-[330px] max-w-[1120px] sm:h-[414px]"
       >
         {reviews.map((review, index) => {
@@ -214,7 +216,10 @@ export function Testimonials() {
           );
         })}
       </div>
-      <fieldset className="flex h-[46px] items-center justify-center">
+      <fieldset
+        data-testimonial-controls
+        className="flex h-[46px] items-center justify-center"
+      >
         <legend className="sr-only">Choose a review</legend>
         {reviews.map((review, index) => (
           <button

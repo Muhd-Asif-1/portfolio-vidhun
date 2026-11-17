@@ -128,25 +128,27 @@ export function PortfolioHero() {
           />
         </div>
         <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="hero-head relative h-[156px] w-[104px]">
-            <Image
-              src="/images/hero/f7db9.svg"
-              alt=""
-              width={103.712}
-              height={129.683}
-              unoptimized
-              className="absolute left-0 top-[30px] max-w-none"
-            />
-            <Image
-              src="/images/hero/2f151.png"
-              alt="Vidhun Prasad"
-              width={102}
-              height={155}
-              preload
-              className="absolute left-[1.7px] top-0 h-[155px] w-[102px] object-fill"
-            />
+          <div data-hero-reveal>
+            <div className="hero-head relative h-[156px] w-[104px]">
+              <Image
+                src="/images/hero/f7db9.svg"
+                alt=""
+                width={103.712}
+                height={129.683}
+                unoptimized
+                className="absolute left-0 top-[30px] max-w-none"
+              />
+              <Image
+                src="/images/hero/2f151.png"
+                alt="Vidhun Prasad"
+                width={102}
+                height={155}
+                preload
+                className="absolute left-[1.7px] top-0 h-[155px] w-[102px] object-fill"
+              />
+            </div>
           </div>
-          <div className="mt-8 flex flex-col items-center">
+          <div data-hero-reveal className="mt-8 flex flex-col items-center">
             <h1
               id="intro-title"
               className="flex flex-col items-center gap-[7px] text-2xl font-normal leading-[28.8px] tracking-[-0.72px]"
@@ -175,12 +177,17 @@ export function PortfolioHero() {
                 Open CV
               </button>
             </div>
-            <p className="mt-4 text-2xl leading-[28.8px] tracking-[-0.72px]">
+            <p
+              data-text-reveal
+              className="mt-4 text-2xl leading-[28.8px] tracking-[-0.72px]"
+            >
               I design digital products
             </p>
           </div>
           <p
             id="about"
+            data-text-reveal
+            data-hero-reveal
             className="mt-8 min-h-[135px] max-w-[300px] scroll-mt-24 font-serif text-base leading-[22.4px] tracking-[-0.48px] text-black/52"
           >
             Hey, I&apos;m Vidhun Prasad — a creative designer specializing in
@@ -188,7 +195,10 @@ export function PortfolioHero() {
             visual identities, meaningful digital experiences, and creative
             solutions that bring ideas to life.
           </p>
-          <div className="mt-8 flex items-center justify-center gap-3 text-[22px] leading-none">
+          <div
+            data-hero-reveal
+            className="mt-8 flex items-center justify-center gap-3 text-[22px] leading-none"
+          >
             <a
               href={`mailto:${contact.email}`}
               className="hero-action mercury-button flex h-[50px] items-center rounded-full px-7"
@@ -235,7 +245,7 @@ export function PortfolioWorks() {
       </h2>
       <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <li key={project.slug} className="group relative">
+          <li key={project.slug} data-work-reveal className="group relative">
             <button
               type="button"
               disabled
@@ -271,11 +281,29 @@ export function PortfolioWorks() {
 export function PortfolioFooter() {
   return (
     <footer className="mx-auto w-full max-w-[1920px] px-[2.14%] pb-16 pt-4 sm:pb-24 sm:pt-[51px]">
-      <div className="relative w-full">
+      <div data-section-reveal="footer-art" className="relative w-full">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-[0.92%] -right-[0.87%] -top-[11.56%] -bottom-[1.99%] border border-[#9747ff]"
-        />
+          className="pointer-events-none absolute -left-[0.92%] -right-[0.87%] -top-[11.56%] -bottom-[1.99%]"
+        >
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 size-full overflow-visible"
+          >
+            <rect
+              data-footer-outline
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              pathLength="1"
+              fill="none"
+              stroke="#9747ff"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
         <Image
           src="/images/footer/vidhun.png"
           alt="VIDHUN, illustrated with vector editing handles and measurements"
@@ -295,6 +323,7 @@ export function PortfolioFooter() {
       </div>
       <nav
         aria-label="Social profiles"
+        data-section-reveal="footer-social"
         className="relative mt-[4.4%] flex justify-center gap-5"
       >
         {[

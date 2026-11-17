@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
+import { ScrollReveals } from "@/components/scroll-reveals";
 
 export function SitePreloader({ children }: { children: ReactNode }) {
   const [visible, setVisible] = useState(true);
@@ -106,6 +107,7 @@ export function SitePreloader({ children }: { children: ReactNode }) {
       <div ref={content} className="flex flex-1 flex-col">
         {children}
       </div>
+      {!visible && <ScrollReveals scope={content} />}
       <noscript>
         <style>{".site-preloader { display: none !important; }"}</style>
       </noscript>
