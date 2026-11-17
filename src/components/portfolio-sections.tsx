@@ -81,39 +81,39 @@ export function PortfolioHero() {
             width={135}
             height={124}
             alt=""
-            className="absolute left-[7%] top-[112px] w-[78px] -rotate-24 drop-shadow-md sm:left-[5.2%] sm:top-[145px] sm:w-[135px]"
+            className="hero-decoration absolute left-[7%] top-[112px] w-[78px] -rotate-24 drop-shadow-md sm:left-[5.2%] sm:top-[145px] sm:w-[135px]"
           />
           <Image
             src="/images/hero/0fcd7.png"
             width={93}
             height={84}
             alt=""
-            className="absolute left-[61%] top-[87px] w-[59px] rotate-12 drop-shadow-md sm:left-[56%] sm:top-[53px] sm:w-[93px]"
+            className="hero-decoration absolute left-[61%] top-[87px] w-[59px] rotate-12 drop-shadow-md sm:left-[56%] sm:top-[53px] sm:w-[93px]"
           />
           <Image
             src="/images/hero/563fd.png"
             width={140}
             height={149}
             alt=""
-            className="absolute right-[5%] top-[203px] w-[76px] rotate-8 drop-shadow-md sm:right-[8.5%] sm:top-[250px] sm:w-[140px]"
+            className="hero-decoration absolute right-[5%] top-[203px] w-[76px] rotate-8 drop-shadow-md sm:right-[8.5%] sm:top-[250px] sm:w-[140px]"
           />
           <Image
             src="/images/hero/0fc62.png"
             width={112}
             height={117}
             alt=""
-            className="absolute left-[3%] top-[460px] w-[52px] rotate-[7deg] drop-shadow-md sm:left-[12.3%] sm:top-[629px] sm:w-[112px]"
+            className="hero-decoration absolute left-[3%] top-[460px] w-[52px] rotate-[7deg] drop-shadow-md sm:left-[12.3%] sm:top-[629px] sm:w-[112px]"
           />
           <Image
             src="/images/hero/a2cba.png"
             width={105}
             height={99}
             alt=""
-            className="absolute right-[2%] top-[570px] w-[48px] sm:right-[13%] sm:top-[682px] sm:w-[105px]"
+            className="hero-decoration absolute right-[2%] top-[570px] w-[48px] sm:right-[13%] sm:top-[682px] sm:w-[105px]"
           />
         </div>
         <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="relative h-[156px] w-[104px]">
+          <div className="hero-head relative h-[156px] w-[104px]">
             <Image
               src="/images/hero/f7db9.svg"
               alt=""
@@ -193,13 +193,13 @@ export function PortfolioHero() {
               type="button"
               disabled
               title="Email address coming soon"
-              className="mercury-button h-[50px] rounded-full px-7"
+              className="hero-action mercury-button h-[50px] rounded-full px-7"
             >
               Get in touch
             </button>
             <a
               href="#works"
-              className="aqua-button flex h-[50px] items-center rounded-full px-7 text-white"
+              className="hero-action aqua-button flex h-[50px] items-center rounded-full px-7 text-white"
             >
               Works
             </a>
