@@ -86,7 +86,7 @@ export function PortfolioHero() {
       aria-labelledby="intro-title"
       className="relative mx-auto max-w-[1920px] overflow-clip"
     >
-      <div className="relative mx-auto max-w-[1280px] px-5 pb-28 pt-[240px] sm:pb-[164px] sm:pt-[clamp(270px,20.49vw,393.4px)]">
+      <div className="relative mx-auto max-w-[1280px] px-5 pb-28 pt-[240px] sm:pb-[164px] sm:pt-[270px] lg:pt-[clamp(210px,15.5vw,297.6px)]">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 select-none"
