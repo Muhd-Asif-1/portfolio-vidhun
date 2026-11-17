@@ -4,62 +4,75 @@ const projects = [
   {
     slug: "prime-estates",
     name: "Prime Estates",
+    label: "Prime Estate",
+    category: "UI/UX",
     description: "Real estate website displayed on a desktop monitor",
   },
   {
     slug: "finlot",
     name: "Finlot",
+    category: "UI/UX",
     description: "Savings app on a lime green background",
   },
   {
     slug: "fiinder",
     name: "Fiinder",
+    category: "UI/UX",
     description:
       "Local discovery app on a phone held against a purple background",
   },
   {
     slug: "packaging",
-    name: "Packaging design",
+    name: "Cult Community",
+    category: "Branding",
     description: "Black packaging with a bold red and white identity",
   },
   {
     slug: "what",
-    name: "What? Men Store",
+    name: "What Clothing",
+    category: "Branding",
     description: "Lime typography over the Statue of Liberty",
   },
   {
     slug: "scent-bowl",
     name: "Scent Bowl",
+    category: "Branding",
     description: "Black and gold perfume bottle resting on rocks",
   },
   {
     slug: "lume",
     name: "Lumé",
+    category: "Branding",
     description: "Burgundy business cards with an embossed gold identity",
   },
   {
     slug: "bulk",
     name: "Bulk",
+    category: "Branding",
     description: "Three colorful fashion identity cards",
   },
   {
     slug: "travel-tech",
-    name: "Traveltech",
+    name: "Travel tech",
+    category: "Branding",
     description: "Blue brand identity on a subway billboard",
   },
   {
     slug: "breathing-app",
-    name: "Breathing app",
+    name: "Uply",
+    category: "UI/UX",
     description: "A guided breathing exercise on a handheld phone",
   },
   {
     slug: "shipping-logistics",
-    name: "Shipping and logistics",
+    name: "Starmark",
+    category: "UI/UX",
     description: "Container shipping website on a blue desktop mockup",
   },
   {
     slug: "rice-soup",
-    name: "Rice Soup Originals",
+    name: "Ricesoup",
+    category: "Branding",
     description: "Playful white lettering on a red background",
   },
 ];
@@ -237,13 +250,12 @@ export function PortfolioWorks() {
       </h2>
       <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <li key={project.slug}>
+          <li key={project.slug} className="group relative">
             <button
               type="button"
               disabled
               className="relative block aspect-[630/472] w-full overflow-hidden rounded-[clamp(18px,1.56vw,30px)] text-left"
-              aria-label={`${project.name} — project details coming soon`}
-              title={`${project.name} — project details coming soon`}
+              aria-label={`${project.name} — ${project.category} — project details coming soon`}
             >
               <Image
                 src={`/images/works/${project.slug}.png`}
@@ -253,6 +265,17 @@ export function PortfolioWorks() {
                 className="object-cover"
               />
             </button>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-5 top-4 flex max-w-[calc(100%-40px)] gap-2 opacity-0 group-hover:opacity-100"
+            >
+              <span className="rounded-[10px] bg-white/40 px-2.5 py-2 text-[22px] leading-[28px] font-normal text-white backdrop-blur-md">
+                {project.category}
+              </span>
+              <span className="min-w-0 truncate rounded-[10px] bg-white/40 px-2.5 py-2 text-[22px] leading-[28px] font-normal text-white backdrop-blur-md">
+                {project.label ?? project.name}
+              </span>
+            </div>
           </li>
         ))}
       </ul>
