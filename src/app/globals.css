@@ -2,10 +2,11 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-tiempos-text), Georgia, "Times New Roman", serif;
 }
 
 :root {
+  scroll-behavior: smooth;
   color-scheme: light;
   background: #fff;
   color: #000;
@@ -142,6 +143,10 @@ button:disabled {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
   .hero-decoration,
   .hero-head {
     animation: none;
@@ -157,29 +162,44 @@ button:disabled {
   }
 }
 
+.review-card {
+  --review-x: 0%;
+  --review-y: 0px;
+  --review-scale: 1;
+  --review-rotation: 0deg;
+  --review-opacity: 1;
+  opacity: var(--review-opacity);
+  transform: translateX(var(--review-x)) translateY(var(--review-y))
+    rotate(var(--review-rotation)) scale(var(--review-scale));
+}
+
 .review-card[data-position="center"] {
   z-index: 2;
 }
 
 .review-card:not([data-position="center"]) {
-  display: none;
+  --review-opacity: 0;
+  --review-x: 8%;
+  pointer-events: none;
 }
 
 @media (min-width: 640px) {
   .review-card:not([data-position="center"]) {
-    display: flex;
+    --review-opacity: 0.65;
+    --review-y: 22px;
+    --review-scale: 0.88;
     background: #f6f6f6;
-    opacity: 0.65;
-    top: 92px;
   }
 
   .review-card[data-position="left"] {
-    transform: translateX(-90%) rotate(-2deg) scale(0.88);
+    --review-x: -90%;
+    --review-rotation: -2deg;
     mask-image: linear-gradient(to right, transparent, #000 30%);
   }
 
   .review-card[data-position="right"] {
-    transform: translateX(90%) rotate(2deg) scale(0.88);
+    --review-x: 90%;
+    --review-rotation: 2deg;
     mask-image: linear-gradient(to left, transparent, #000 30%);
   }
 }

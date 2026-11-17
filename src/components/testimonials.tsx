@@ -1,7 +1,8 @@
 "use client";
 
+import { gsap } from "gsap";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const reviews = [
   {
@@ -31,15 +32,135 @@ const reviews = [
 
 export function Testimonials() {
   const [selected, setSelected] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
+  const [preferences, setPreferences] = useState<{
+    desktop: boolean;
+    reducedMotion: boolean;
+  } | null>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const progress = useRef<(HTMLSpanElement | null)[]>([]);
+  const autoplay = useRef<gsap.core.Tween | null>(null);
+  const initialized = useRef(false);
+  const reducedMotion = preferences?.reducedMotion ?? true;
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 640px)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreferences = () =>
+      setPreferences({
+        desktop: desktop.matches,
+        reducedMotion: reducedMotion.matches,
+      });
+    const updateVisibility = () => setHidden(document.hidden);
+    updatePreferences();
+    updateVisibility();
+    desktop.addEventListener("change", updatePreferences);
+    reducedMotion.addEventListener("change", updatePreferences);
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => {
+      desktop.removeEventListener("change", updatePreferences);
+      reducedMotion.removeEventListener("change", updatePreferences);
+      document.removeEventListener("visibilitychange", updateVisibility);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    // Each newly selected indicator owns the countdown that advances its review.
+    const indicator = progress.current[selected];
+    if (!indicator) return;
+    if (reducedMotion) {
+      gsap.set(indicator, { scaleX: 1 });
+      return;
+    }
+    const timer = gsap.fromTo(
+      indicator,
+      { scaleX: 0 },
+      {
+        scaleX: 1,
+        duration: 2,
+        ease: "none",
+        paused: true,
+        onComplete: () => setSelected((index) => (index + 1) % reviews.length),
+      },
+    );
+    autoplay.current = timer;
+    return () => {
+      timer.kill();
+      autoplay.current = null;
+    };
+  }, [selected, reducedMotion]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Selection replaces the countdown ref, so resume or pause the new tween too.
+  useEffect(() => {
+    if (reducedMotion || hovered || focused || hidden)
+      autoplay.current?.pause();
+    else autoplay.current?.resume();
+  }, [selected, reducedMotion, hovered, focused, hidden]);
+
+  useLayoutEffect(() => {
+    if (!stage.current || !preferences) return;
+    const { desktop, reducedMotion } = preferences;
+    const duration = initialized.current && !reducedMotion ? 0.6 : 0;
+    initialized.current = true;
+    const cards = Array.from(
+      stage.current.querySelectorAll<HTMLElement>(".review-card"),
+    );
+    // Keep the background cards in their slots; only the new front card pops in.
+    for (const [index, card] of cards.entries()) {
+      const active = index === selected;
+      const side = index === (selected + 1) % reviews.length ? 1 : -1;
+      gsap.set(card, {
+        "--review-x": `${active ? 0 : side * (desktop ? 90 : 8)}%`,
+        "--review-y": `${!active && desktop ? 22 : 0}px`,
+        "--review-scale": !active && desktop ? 0.88 : 1,
+        "--review-rotation": `${!active && desktop ? side * 2 : 0}deg`,
+        "--review-opacity": active ? 1 : desktop ? 0.65 : 0,
+      });
+    }
+    if (!duration) return;
+    const animation = gsap.fromTo(
+      cards[selected],
+      {
+        "--review-y": "20px",
+        "--review-scale": 0.9,
+        "--review-opacity": 0.35,
+      },
+      {
+        "--review-y": "0px",
+        "--review-scale": 1,
+        "--review-opacity": 1,
+        duration,
+        ease: "back.out(1.2)",
+        overwrite: true,
+      },
+    );
+    return () => {
+      animation.kill();
+    };
+  }, [selected, preferences]);
+
   return (
     <section
       aria-labelledby="testimonials-title"
       className="overflow-clip px-5 pb-20 pt-10 sm:pb-[104px] sm:pt-6"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          setFocused(false);
+      }}
     >
       <h2 id="testimonials-title" className="sr-only">
         What clients say
       </h2>
-      <div className="relative mx-auto h-[330px] max-w-[1120px] sm:h-[414px]">
+      <div
+        ref={stage}
+        className="relative mx-auto h-[330px] max-w-[1120px] sm:h-[414px]"
+      >
         {reviews.map((review, index) => {
           const position =
             index === selected
@@ -101,22 +222,34 @@ export function Testimonials() {
             type="button"
             aria-label={`Show review from ${review.name}`}
             aria-pressed={index === selected}
-            onClick={() => setSelected(index)}
+            onClick={() => {
+              setSelected(index);
+              setAnnouncement(`Review from ${review.name}: ${review.quote}`);
+            }}
             className="flex h-11 w-6 items-center justify-center rounded-full"
           >
             <span
               aria-hidden="true"
               className={
                 index === selected
-                  ? "h-1.5 w-3.5 rounded-full bg-black"
+                  ? "h-1.5 w-6 overflow-hidden rounded-full bg-black/15"
                   : "size-1.5 rounded-full bg-black/20"
               }
-            />
+            >
+              {index === selected && (
+                <span
+                  ref={(node) => {
+                    progress.current[index] = node;
+                  }}
+                  className="block size-full origin-left rounded-full bg-black"
+                />
+              )}
+            </span>
           </button>
         ))}
       </fieldset>
       <p aria-live="polite" aria-atomic="true" className="sr-only">
-        Review from {reviews[selected].name}: {reviews[selected].quote}
+        {announcement}
       </p>
     </section>
   );

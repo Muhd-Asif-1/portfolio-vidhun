@@ -264,6 +264,10 @@ export function PortfolioFooter() {
   return (
     <footer className="mx-auto w-full max-w-[1920px] px-[2.14%] pb-16 pt-4 sm:pb-24 sm:pt-[51px]">
       <div className="relative w-full">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[0.92%] -right-[0.87%] -top-[11.56%] -bottom-[1.99%] border border-[#9747ff]"
+        />
         <Image
           src="/images/footer/vidhun.png"
           alt="VIDHUN, illustrated with vector editing handles and measurements"
