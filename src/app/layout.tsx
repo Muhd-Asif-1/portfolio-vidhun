@@ -30,7 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${tiemposText.variable} h-full antialiased`}
     >
-      head
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Vidhun" />
+      </head>
       <body className="min-h-full flex flex-col">
         <Analytics />
         <SitePreloader>{children}</SitePreloader>
