@@ -1,0 +1,85 @@
+<svg width="320" height="283" viewBox="0 0 275 243" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <style>
+        /* Ensure crisp pixel rendering */
+        svg {
+            shape-rendering: crispEdges;
+        }
+
+        /* Stepped pixel-grid walking cycle: back legs and front arm alternate in a natural knuckle-walk gait */
+        @keyframes walkBackLegs {
+            0%, 100% { transform: translate(0px, 0px); }
+            25% { transform: translate(15.3px, -15.3px); }
+            50% { transform: translate(30.6px, 0px); }
+            75% { transform: translate(15.3px, 0px); }
+        }
+
+        @keyframes walkFrontArm {
+            0%, 100% { transform: translate(0px, 0px); }
+            25% { transform: translate(-15.3px, 0px); }
+            50% { transform: translate(-30.6px, 0px); }
+            75% { transform: translate(-15.3px, -15.3px); }
+        }
+
+        .walk-leg-left {
+            animation: walkBackLegs 0.6s steps(1, end) infinite;
+        }
+
+        .walk-leg-right {
+            animation: walkFrontArm 0.6s steps(1, end) infinite;
+        }
+    
+@media (prefers-reduced-motion: reduce) { .walk-leg-left, .walk-leg-right { animation: none; } }
+</style>
+<defs>
+                    <clipPath id="clip-gorilla">
+                        <rect width="275" height="243" fill="white"/>
+                    </clipPath>
+
+                    <!-- Clip region for the stationary upper body -->
+                    <clipPath id="clip-body">
+                        <rect x="-50" y="-50" width="375" height="216.7"/>
+                    </clipPath>
+
+                    <!-- Strict lower-limb mask so lifting legs don't double-render the torso -->
+                    <clipPath id="clip-lower-only">
+                        <rect x="-50" y="166.7" width="375" height="126.3"/>
+                    </clipPath>
+
+                    <!-- Clip region for the rear/mid legs (x = 0 to 182.8) -->
+                    <clipPath id="clip-back-legs">
+                        <rect x="-50" y="150" width="232.8" height="143"/>
+                    </clipPath>
+
+                    <!-- Clip region for the front knuckle arm (x = 182.8 to 275) -->
+                    <clipPath id="clip-front-arm">
+                        <rect x="182.8" y="150" width="142.2" height="143"/>
+                    </clipPath>
+
+                    <!-- Reusable exact gorilla path -->
+                    <g id="gorilla-shape">
+                        <path d="M205.004 63.3047V63.7061L205.225 63.72L205.004 63.3047Z" fill="#000000"/>
+                        <path d="M274.917 183.06C274.917 181.08 274.197 180.499 272.314 180.54C267.87 180.651 263.44 180.582 258.539 180.582C258.539 176.374 258.401 172.525 258.594 168.705C258.719 166.13 257.944 165.189 255.272 165.341C251.257 165.562 247.242 165.396 242.937 165.396V150.224H228.331V112.862L228.303 84.8299L224.012 84.6361L224.787 67.8722L237.773 68.4675L237.067 83.7363L267.87 85.1621L269.227 55.5796L260.034 55.1505L260.353 48.4782L238.437 47.4676L238.963 36.061L260.297 37.0439L260.851 24.9036L249.623 24.3775L250.149 12.7356L239.296 12.2372L239.808 1.30124L211.718 0L211.206 11.1298L200.241 10.6314L199.674 22.9655L187.768 22.4118L187.214 34.5383L174.92 33.9707L174.533 42.3457H164.745V57.6561H149.779V72.8557H134.606V88.5398H102.1V102.48H97.2686C85.9718 102.494 74.6749 102.59 63.3643 102.507C60.9831 102.48 59.9863 103.075 60.1248 105.622C60.3186 109.263 60.1663 112.903 60.1663 116.904H46.1699V163.86H30.7752V179.405H15.3666V195.006C11.2134 195.006 7.4478 195.186 3.70988 194.951C0.857986 194.785 -0.0280392 195.698 -0.000350896 198.578C0.138091 212.462 0.124246 226.333 0.0273374 240.218C0.0273374 242.585 0.968739 243 3.03152 243C21.9565 242.917 40.8952 242.917 59.8202 242.875C60.7893 242.875 61.7445 242.765 62.7551 242.695V226.831H47.7758V212.172H74.8411V197.18H90.0835V181.828C94.5136 181.828 98.5699 181.717 102.599 181.869C104.841 181.952 105.534 181.191 105.45 178.976C105.284 174.837 105.409 170.698 105.409 166.739C105.907 166.462 106.073 166.296 106.24 166.296C115.944 166.448 125.663 166.587 135.368 166.822C135.908 166.836 136.891 167.639 136.904 168.096C137.029 172.401 136.974 176.72 136.974 181.316H121.482V196.944H104.246V242.64H169.618C169.618 237.781 169.521 233.227 169.66 228.686C169.715 226.527 168.87 225.945 166.877 226.001C163.014 226.125 159.152 226.015 155.276 226.098C153.628 226.139 152.964 225.544 153.033 223.855C153.13 221.087 152.853 218.29 153.102 215.535C153.365 212.656 152.188 211.992 149.558 212.13C145.723 212.324 141.888 212.172 137.998 212.172V197.54H153.116V166.697H182.812V182.118H197.583V197.332H212.521V212.255H225.673V216.172C225.645 223.994 225.728 231.829 225.521 239.664C225.451 242.349 226.365 242.986 228.926 242.958C240.708 242.848 252.517 242.917 264.312 242.917H274.75C274.861 241.796 275 241.117 275 240.453C274.958 221.322 274.903 202.191 274.917 183.06ZM251.465 58.8051L262.928 59.3311L262.471 69.1873L251.008 68.6613L251.465 58.8051ZM205.225 63.7193H204.99L205.004 63.304L205.737 47.3431L225.507 48.2567L224.745 64.6191L205.225 63.7193Z" fill="#000000"/>
+                    </g>
+                </defs>
+
+                <g clip-path="url(#clip-gorilla)">
+                    <!-- Static Upper Body -->
+                    <g clip-path="url(#clip-body)">
+                        <use href="#gorilla-shape"/>
+                    </g>
+
+                    <!-- Back/Mid Legs Walking Cycle -->
+                    <g clip-path="url(#clip-back-legs)">
+                        <g class="walk-leg-left">
+                            <use href="#gorilla-shape" clip-path="url(#clip-lower-only)"/>
+                        </g>
+                    </g>
+
+                    <!-- Front Arm Knuckle-Walking Cycle (Alternates with back legs) -->
+                    <g clip-path="url(#clip-front-arm)">
+                        <g class="walk-leg-right">
+                            <use href="#gorilla-shape" clip-path="url(#clip-lower-only)"/>
+                        </g>
+                    </g>
+                </g>
+            </svg>
