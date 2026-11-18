@@ -251,11 +251,11 @@ export function PortfolioFooter() {
         />
         <Image
           src="/images/footer/vidhun-dark.png"
-          alt="VIDHUN, illustrated with vector editing handles and measurements"
+          alt=""
           width={1839}
           height={320}
           sizes="100vw"
-          className="footer-wordmark-dark hidden h-auto w-full"
+          className="footer-wordmark-dark absolute inset-0 h-auto w-full"
         />
         <Image
           src="/images/footer/hands.png"
@@ -305,7 +305,7 @@ export function PortfolioFooter() {
               alt=""
               width={84}
               height={92}
-              className="footer-social-icon footer-social-dark pointer-events-none absolute -left-5 -top-3 hidden max-w-none"
+              className="footer-social-icon footer-social-dark pointer-events-none absolute -left-5 -top-3 max-w-none"
               unoptimized
             />
           </a>
