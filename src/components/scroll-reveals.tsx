@@ -33,8 +33,12 @@ export function ScrollReveals({
         );
         const splits: SplitText[] = [];
 
+        const floating = Array.from(
+          root.querySelectorAll<HTMLElement>("[data-floating-reveal]"),
+        );
+        const entrance = gsap.timeline({ defaults: { ease: "power3.out" } });
         if (hero.length)
-          gsap.fromTo(
+          entrance.fromTo(
             hero,
             { autoAlpha: 0, y: 24 },
             {
@@ -42,9 +46,23 @@ export function ScrollReveals({
               y: 0,
               duration: 0.85,
               stagger: 0.11,
-              ease: "power3.out",
               clearProps: "opacity,visibility,transform",
             },
+          );
+        // Finish introducing the person before the surrounding toys arrive.
+        if (floating.length)
+          entrance.fromTo(
+            floating,
+            { autoAlpha: 0, y: 26, scale: 0.82 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              stagger: 0.18,
+              clearProps: "opacity,visibility,transform",
+            },
+            "+=0.5",
           );
 
         for (const text of root.querySelectorAll<HTMLElement>(

@@ -117,7 +117,8 @@ function FloatingObject({
     <button
       ref={button}
       type="button"
-      className={`hero-decoration pointer-events-auto absolute z-20 cursor-pointer touch-manipulation rounded-xl border-0 bg-transparent p-0 ${object.className}`}
+      data-floating-reveal
+      className={`pointer-events-auto absolute z-20 cursor-pointer touch-manipulation rounded-xl border-0 bg-transparent p-0 ${object.className}`}
       style={{ aspectRatio: `${object.width} / ${object.height}` }}
       aria-label={`${object.name} toy: ${current.name}. Change to ${next.name}`}
       onClick={() => {
@@ -125,34 +126,36 @@ function FloatingObject({
         setIndex((previous) => (previous + 1) % artworks.length);
       }}
     >
-      {artworks.map((artwork, position) => (
-        <span
-          key={artwork.src}
-          data-artwork
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{ opacity: position === 0 ? 1 : 0 }}
-        >
-          <Image
-            src={failed.includes(artwork.src) ? object.src : artwork.src}
-            alt=""
-            fill
-            unoptimized
-            loading="eager"
-            draggable={false}
-            className="select-none object-contain"
-            onError={() => {
-              if (artwork.src !== object.src) {
-                setFailed((previous) =>
-                  previous.includes(artwork.src)
-                    ? previous
-                    : [...previous, artwork.src],
-                );
-              }
-            }}
-          />
-        </span>
-      ))}
+      <span className="hero-decoration pointer-events-none absolute inset-0">
+        {artworks.map((artwork, position) => (
+          <span
+            key={artwork.src}
+            data-artwork
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{ opacity: position === 0 ? 1 : 0 }}
+          >
+            <Image
+              src={failed.includes(artwork.src) ? object.src : artwork.src}
+              alt=""
+              fill
+              unoptimized
+              loading="eager"
+              draggable={false}
+              className="select-none object-contain"
+              onError={() => {
+                if (artwork.src !== object.src) {
+                  setFailed((previous) =>
+                    previous.includes(artwork.src)
+                      ? previous
+                      : [...previous, artwork.src],
+                  );
+                }
+              }}
+            />
+          </span>
+        ))}
+      </span>
     </button>
   );
 }

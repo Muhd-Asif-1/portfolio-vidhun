@@ -104,7 +104,11 @@ export function SitePreloader({ children }: { children: ReactNode }) {
           <span className="sr-only">Loading portfolio…</span>
         </output>
       )}
-      <div ref={content} className="flex flex-1 flex-col">
+      <div
+        ref={content}
+        data-site-loading={visible}
+        className="flex flex-1 flex-col"
+      >
         {children}
       </div>
       {!visible && <ScrollReveals scope={content} />}

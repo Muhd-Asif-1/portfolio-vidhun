@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CopyEmailButton } from "@/components/copy-email-button";
+import { CopyLinkButton, DownloadCvButton } from "@/components/hero-actions";
 import { HeroFloatingObjects } from "@/components/hero-floating-objects";
 import { contact } from "@/lib/contact";
 
@@ -120,24 +120,10 @@ export function PortfolioHero() {
                 Vidhun Prasad
               </span>
             </h1>
-            <div className="mt-[18px] flex h-[38px] items-center rounded-full bg-white text-[13px] font-medium shadow-[0_8px_28px_rgba(30,40,60,0.14)]">
-              <CopyEmailButton />
+            <div className="hero-link-actions relative mt-[18px] flex h-[38px] items-center rounded-full bg-white text-[13px] font-medium shadow-[0_8px_28px_rgba(30,40,60,0.14)]">
+              <CopyLinkButton />
               <span aria-hidden="true" className="h-5 w-px bg-black/4" />
-              <button
-                type="button"
-                disabled
-                title="CV coming soon"
-                className="flex items-center gap-1.5 rounded-r-full px-3 py-2.5"
-              >
-                <Image
-                  src="/images/hero/0b94e.svg"
-                  alt=""
-                  width={18}
-                  height={18}
-                  unoptimized
-                />
-                Open CV
-              </button>
+              <DownloadCvButton />
             </div>
             <p
               data-text-reveal
@@ -150,7 +136,7 @@ export function PortfolioHero() {
             id="about"
             data-text-reveal
             data-hero-reveal
-            className="mt-8 min-h-[135px] max-w-[300px] scroll-mt-24 font-serif text-base leading-[22.4px] tracking-[-0.48px] text-black/52"
+            className="hero-bio mt-8 min-h-[135px] max-w-[300px] scroll-mt-24 font-serif text-base leading-[22.4px] tracking-[-0.48px] text-black/52"
           >
             Hey, I&apos;m Vidhun Prasad — a creative designer specializing in
             UI/UX, graphic design, and motion design. I love crafting bold
@@ -176,21 +162,6 @@ export function PortfolioHero() {
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        disabled
-        aria-label="Dark theme (coming later)"
-        title="Dark theme coming later"
-        className="absolute right-[3.4%] top-0 hidden h-[220px] w-12 sm:block"
-      >
-        <Image
-          src="/images/hero/theme.png"
-          alt=""
-          width={48}
-          height={220}
-          unoptimized
-        />
-      </button>
     </section>
   );
 }
@@ -248,6 +219,10 @@ export function PortfolioFooter() {
           aria-hidden="true"
           className="pointer-events-none absolute -left-[0.92%] -right-[0.87%] -top-[11.56%] -bottom-[1.99%]"
         >
+          <span className="absolute bottom-full left-0 mb-[5px] flex items-center gap-[3px] whitespace-nowrap text-[10px] leading-none text-[#9747ff]">
+            <span className="size-[5px] rotate-45 border border-current" />
+            Frame 357
+          </span>
           <svg
             aria-hidden="true"
             className="absolute inset-0 size-full overflow-visible"
@@ -272,7 +247,15 @@ export function PortfolioFooter() {
           width={1839}
           height={320}
           sizes="100vw"
-          className="h-auto w-full"
+          className="footer-wordmark-light h-auto w-full"
+        />
+        <Image
+          src="/images/footer/vidhun-dark.png"
+          alt="VIDHUN, illustrated with vector editing handles and measurements"
+          width={1839}
+          height={320}
+          sizes="100vw"
+          className="footer-wordmark-dark hidden h-auto w-full"
         />
         <Image
           src="/images/footer/hands.png"
@@ -314,7 +297,15 @@ export function PortfolioFooter() {
               alt=""
               width={84}
               height={92}
-              className="footer-social-icon pointer-events-none absolute -left-5 -top-3 max-w-none"
+              className="footer-social-icon footer-social-light pointer-events-none absolute -left-5 -top-3 max-w-none"
+              unoptimized
+            />
+            <Image
+              src={`/images/footer/${social.file}-dark.png`}
+              alt=""
+              width={84}
+              height={92}
+              className="footer-social-icon footer-social-dark pointer-events-none absolute -left-5 -top-3 hidden max-w-none"
               unoptimized
             />
           </a>
