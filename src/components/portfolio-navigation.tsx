@@ -14,7 +14,11 @@ export function PortfolioNavigation() {
       >
         {[
           { label: "Home", href: "/", active: pathname === "/" },
-          { label: "Works", href: "/#works", active: false },
+          {
+            label: "Works",
+            href: "/#works",
+            active: pathname.startsWith("/projects/"),
+          },
           { label: "About", href: "/about", active: pathname === "/about" },
         ].map((item) => (
           <Link
