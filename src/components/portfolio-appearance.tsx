@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-export function HomeAppearance({ children }: { children: ReactNode }) {
+export function PortfolioAppearance({ children }: { children: ReactNode }) {
   const [dark, setDark] = useState(false);
   const [pulling, setPulling] = useState(false);
   const cord = useRef<HTMLSpanElement>(null);
@@ -141,7 +141,7 @@ export function HomeAppearance({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className="home-page relative isolate flex-1"
+      className="portfolio-page relative isolate flex-1"
       data-theme={dark ? "dark" : "light"}
     >
       <button

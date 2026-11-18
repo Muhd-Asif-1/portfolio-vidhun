@@ -9,28 +9,69 @@
   --background: #fff;
   --foreground: #000;
   --surface: #fff;
+  --muted-foreground: #0008;
+  --subtle-border: #0000001a;
   scroll-behavior: smooth;
   color-scheme: light;
   background: var(--background);
   color: var(--foreground);
 }
 
-:root:has(.home-page[data-theme="dark"]) {
+:root:has(.portfolio-page[data-theme="dark"]) {
   --background: #090909;
   --foreground: #fff;
   --surface: #202020;
+  --muted-foreground: #ffffffb3;
+  --subtle-border: #ffffff26;
   color-scheme: dark;
 }
 
-.home-page {
+.portfolio-page {
   background-color: var(--background);
   color: var(--foreground);
 }
 
-:root:has(.home-page),
-.home-page,
-.home-navigation,
-.home-navigation a,
+.about-copy {
+  color: var(--muted-foreground);
+  transition: color 650ms ease-in-out;
+}
+
+.about-badge {
+  background: #f6f6f6;
+  transition: background-color 650ms ease-in-out;
+}
+
+.portfolio-page[data-theme="dark"] .about-badge {
+  background: #202020;
+}
+
+.portfolio-page[data-theme="dark"] .about-experience-icon {
+  filter: invert(1);
+}
+
+.offering-panel {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 250ms ease,
+    opacity 250ms ease;
+}
+
+.offering-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.offering-arrow {
+  transition:
+    transform 250ms ease,
+    color 650ms ease-in-out;
+}
+
+:root:has(.portfolio-page),
+.portfolio-page,
+.portfolio-navigation,
+.portfolio-navigation a,
 .hero-bio,
 .site-preloader {
   transition:
@@ -38,7 +79,7 @@
     color 650ms ease-in-out;
 }
 
-.home-page::before {
+.portfolio-page::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -52,20 +93,20 @@
   transition: opacity 850ms ease-in-out;
 }
 
-.home-page[data-theme="dark"]::before {
+.portfolio-page[data-theme="dark"]::before {
   opacity: 0.3;
 }
 
-.home-page[data-theme="dark"] .home-navigation {
+.portfolio-page[data-theme="dark"] .portfolio-navigation {
   background: #202020;
 }
 
-.home-page[data-theme="dark"] .home-navigation-active {
+.portfolio-page[data-theme="dark"] .portfolio-navigation-active {
   background: #fff;
   color: #000;
 }
 
-.home-page[data-theme="dark"] .hero-bio {
+.portfolio-page[data-theme="dark"] .hero-bio {
   color: #fff;
 }
 
@@ -75,7 +116,7 @@
   color-scheme: light;
 }
 
-.home-page[data-theme="dark"] .mercury-button {
+.portfolio-page[data-theme="dark"] .mercury-button {
   box-shadow:
     inset 0 -3px 8px #0006,
     inset 0 1px 0 #ffffffb3,
@@ -97,28 +138,32 @@
   opacity: 0;
 }
 
-.home-page[data-theme="dark"] .footer-wordmark-light,
-.home-page[data-theme="dark"] .footer-social-light,
-.home-page[data-theme="dark"] .theme-switch-light {
+.portfolio-page[data-theme="dark"] .footer-wordmark-light,
+.portfolio-page[data-theme="dark"] .footer-social-light,
+.portfolio-page[data-theme="dark"] .theme-switch-light {
   opacity: 0;
 }
 
-.home-page[data-theme="dark"] .footer-wordmark-dark,
-.home-page[data-theme="dark"] .footer-social-dark,
-.home-page[data-theme="dark"] .theme-switch-dark,
-.home-page[data-theme="dark"] .mercury-button::before {
+.portfolio-page[data-theme="dark"] .footer-wordmark-dark,
+.portfolio-page[data-theme="dark"] .footer-social-dark,
+.portfolio-page[data-theme="dark"] .theme-switch-dark,
+.portfolio-page[data-theme="dark"] .mercury-button::before {
   opacity: 1;
 }
 
-.home-page [data-testimonial-controls] span {
+.portfolio-page [data-testimonial-controls] span {
   transition: background-color 650ms ease-in-out;
 }
 
-.home-page[data-theme="dark"] [data-testimonial-controls] button > span {
+.portfolio-page[data-theme="dark"] [data-testimonial-controls] button > span {
   background: #ffffff40;
 }
 
-.home-page[data-theme="dark"] [data-testimonial-controls] button > span > span {
+.portfolio-page[data-theme="dark"]
+  [data-testimonial-controls]
+  button
+  > span
+  > span {
   background: #fff;
 }
 
@@ -331,20 +376,24 @@ button:disabled {
     animation: none;
   }
 
-  :root:has(.home-page),
-  .home-page,
-  .home-navigation,
-  .home-navigation a,
+  :root:has(.portfolio-page),
+  .portfolio-page,
+  .portfolio-navigation,
+  .portfolio-navigation a,
+  .about-copy,
+  .about-badge,
+  .offering-panel,
+  .offering-arrow,
   .hero-bio,
   .site-preloader,
-  .home-page::before,
+  .portfolio-page::before,
   .footer-wordmark-light,
   .footer-wordmark-dark,
   .theme-cord img,
   .hero-action,
   .mercury-button::before,
   .footer-social-icon,
-  .home-page [data-testimonial-controls] span {
+  .portfolio-page [data-testimonial-controls] span {
     transition: none;
   }
 

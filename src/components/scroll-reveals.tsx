@@ -3,6 +3,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { usePathname } from "next/navigation";
 import { type RefObject, useLayoutEffect } from "react";
 
 export function ScrollReveals({
@@ -10,6 +11,7 @@ export function ScrollReveals({
 }: {
   scope: RefObject<HTMLDivElement | null>;
 }) {
+  const pathname = usePathname();
   useLayoutEffect(() => {
     const root = scope.current;
     if (!root) return;
@@ -18,15 +20,23 @@ export function ScrollReveals({
 
     const initialize = () => {
       // Server-rendered children can arrive after the client shell hydrates.
-      if (!root.querySelector('[data-section-reveal="footer-social"]')) return;
+      const page = Array.from(
+        root.querySelectorAll<HTMLElement>("[data-page-path]"),
+      ).find((page) => page.dataset.pagePath === pathname);
+      if (
+        !page ||
+        !page.getClientRects().length ||
+        !root.querySelector('[data-section-reveal="footer-social"]')
+      )
+        return;
       observer.disconnect();
       media = gsap.matchMedia();
       media.add("(prefers-reduced-motion: no-preference)", () => {
         const hero = Array.from(
-          root.querySelectorAll<HTMLElement>("[data-hero-reveal]"),
+          page.querySelectorAll<HTMLElement>("[data-hero-reveal]"),
         );
         const cards = Array.from(
-          root.querySelectorAll<HTMLElement>("[data-work-reveal]"),
+          page.querySelectorAll<HTMLElement>("[data-work-reveal]"),
         );
         const images = cards.flatMap((card) =>
           Array.from(card.querySelectorAll("img")),
@@ -34,7 +44,7 @@ export function ScrollReveals({
         const splits: SplitText[] = [];
 
         const floating = Array.from(
-          root.querySelectorAll<HTMLElement>("[data-floating-reveal]"),
+          page.querySelectorAll<HTMLElement>("[data-floating-reveal]"),
         );
         const entrance = gsap.timeline({ defaults: { ease: "power3.out" } });
         if (hero.length)
@@ -65,7 +75,7 @@ export function ScrollReveals({
             "+=0.5",
           );
 
-        for (const text of root.querySelectorAll<HTMLElement>(
+        for (const text of page.querySelectorAll<HTMLElement>(
           "[data-text-reveal]",
         )) {
           let revealed = false;
@@ -148,9 +158,11 @@ export function ScrollReveals({
           );
         }
 
-        for (const section of root.querySelectorAll<HTMLElement>(
-          "[data-section-reveal]",
-        )) {
+        const sections = [
+          ...page.querySelectorAll<HTMLElement>("[data-section-reveal]"),
+          ...root.querySelectorAll<HTMLElement>("footer [data-section-reveal]"),
+        ];
+        for (const section of sections) {
           if (section.getBoundingClientRect().bottom <= 0) continue;
           const timeline = gsap.timeline({
             defaults: { ease: "power3.out" },
@@ -241,13 +253,18 @@ export function ScrollReveals({
     };
 
     const observer = new MutationObserver(initialize);
-    observer.observe(root, { childList: true, subtree: true });
+    observer.observe(root, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "hidden"],
+    });
     initialize();
     return () => {
       observer.disconnect();
       media?.revert();
     };
-  }, [scope]);
+  }, [scope, pathname]);
 
   return null;
 }
