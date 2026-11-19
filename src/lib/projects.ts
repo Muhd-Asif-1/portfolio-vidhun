@@ -9,6 +9,7 @@ export type Project = {
   slug: string;
   name: string;
   label?: string;
+  externalUrl?: string;
   category: string;
   description: string;
   details?: {
@@ -29,6 +30,7 @@ export const projects: Project[] = [
     slug: "prime-estates",
     name: "Prime Estates",
     label: "Prime Estate",
+    externalUrl: "https://www.prime-estates.com/en",
     category: "UI/UX",
     description: "Real estate website displayed on a desktop monitor",
   },
@@ -140,6 +142,7 @@ export const projects: Project[] = [
   {
     slug: "shipping-logistics",
     name: "Starmark",
+    externalUrl: "https://www.starmarkco.com/",
     category: "UI/UX",
     description: "Container shipping website on a blue desktop mockup",
   },

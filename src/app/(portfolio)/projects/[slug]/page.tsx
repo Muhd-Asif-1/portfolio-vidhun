@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { contact } from "@/lib/contact";
 import { createPageMetadata } from "@/lib/metadata";
 import { projects } from "@/lib/projects";
@@ -27,6 +27,7 @@ export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = projects.find((project) => project.slug === slug);
   if (!project) notFound();
+  if (project.externalUrl) redirect(project.externalUrl);
   const details = project.details;
 
   return (

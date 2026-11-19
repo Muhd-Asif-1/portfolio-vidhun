@@ -105,9 +105,11 @@ export function PortfolioWorks() {
         {projects.map((project) => (
           <li key={project.slug} data-work-reveal className="group relative">
             <Link
-              href={`/projects/${project.slug}`}
+              href={project.externalUrl ?? `/projects/${project.slug}`}
+              target={project.externalUrl ? "_blank" : undefined}
+              rel={project.externalUrl ? "noopener noreferrer" : undefined}
               className="relative block aspect-[630/472] w-full overflow-hidden rounded-[clamp(18px,1.56vw,30px)] text-left"
-              aria-label={`${project.name} — ${project.category}`}
+              aria-label={`${project.name} — ${project.category}${project.externalUrl ? " (opens in a new tab)" : ""}`}
             >
               <Image
                 src={`/images/works/${project.slug}.png`}
