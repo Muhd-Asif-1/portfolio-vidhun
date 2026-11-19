@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { AboutOfferings } from "@/components/about-offerings";
 import { contact } from "@/lib/contact";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "About — Vidhun Prasad",
-  description:
-    "Meet Vidhun Prasad: a creative designer working across UI/UX, graphic design, branding, and motion design.",
-};
+export const metadata: Metadata = createPageMetadata(
+  "About — Vidhun Prasad",
+  "Meet Vidhun Prasad: a creative designer working across UI/UX, graphic design, branding, and motion design.",
+  "/about",
+);
 
 export default function About() {
   return (

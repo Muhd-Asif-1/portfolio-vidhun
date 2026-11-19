@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { contact } from "@/lib/contact";
+import { createPageMetadata } from "@/lib/metadata";
 import { projects } from "@/lib/projects";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -14,10 +15,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((project) => project.slug === slug);
   if (!project) notFound();
-  return {
-    title: `${project.name} — Vidhun Prasad`,
-    description: project.details?.summary,
-  };
+  return createPageMetadata(
+    `${project.name} — Vidhun Prasad`,
+    project.details?.summary ||
+      `Explore ${project.name}, a ${project.category} design project by Vidhun Prasad.`,
+    `/projects/${project.slug}`,
+  );
 }
 
 export default async function ProjectPage({ params }: Props) {

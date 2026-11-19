@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import { SitePreloader } from "@/components/site-preloader";
+import { createPageMetadata, siteUrl } from "@/lib/metadata";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,9 +21,13 @@ const tiemposText = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Vidhun Prasad — Creative Designer",
-  description:
-    "UI/UX, graphic design, and motion design by Vidhun Prasad. Bold visual identities and meaningful digital experiences.",
+  metadataBase: siteUrl,
+  authors: [{ name: "Vidhun Prasad" }],
+  ...createPageMetadata(
+    "Vidhun Prasad — UI/UX & Creative Designer",
+    "Explore Vidhun Prasad’s portfolio of UI/UX design, brand identities, graphic design, and motion design. Thoughtful digital experiences and bold visual storytelling.",
+    "/",
+  ),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
